@@ -5,7 +5,7 @@ function jsUcfirst(string) {
 //functions to run when document is finished loading
 jQuery(document).ready(function () {
     jQuery("#launchbutton").css({
-        "font-size": "24px",
+        "font-size": "30px",
         "text-align": "center"
 
     });

@@ -18,7 +18,7 @@ require_once plugin_dir_path(__FILE__) . '/vendor/autoload.php';
 use Flow\JSONPath\JSONPath;
 
 add_action('wp_enqueue_scripts', function () {
-    wp_register_script('datatocells', plugin_dir_url(__FILE__) . 'datatocells.js', array('jquery'), null, true);
+    wp_register_script('datatocells', plugin_dir_url(__FILE__) . 'datatocells.js', array('jquery'), rand(1, 100), true); //rand() solves cache bug that was preventing WP from enqueing changes I had made on the server
     wp_enqueue_script('jquery-ui-widget');
     wp_enqueue_script('jquery-ui-button');
     wp_enqueue_script('datatocells');
