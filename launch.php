@@ -9,7 +9,7 @@ Plugin Name: Rocket Launches
 Plugin URI: https://github.com/rlane85/launch-table-wordpress
 Description: Query spacelaunchnow.me and display results in a TablePress table
 Author: Ryan Lane
-Version: 0.1
+Version: 0.3
 Author URI: https://ahomeconnected.com
 */
 
@@ -17,12 +17,11 @@ require_once plugin_dir_path(__FILE__) . '/vendor/autoload.php';
 
 use Flow\JSONPath\JSONPath;
 
-add_action('wp_enqueue_scripts', function () {
-    wp_register_script('datatocells', plugin_dir_url(__FILE__) . 'datatocells.js', array('jquery'), rand(1, 100), true); //rand() solves cache bug that was preventing WP from enqueing changes I had made on the server
-    wp_enqueue_script('jquery-ui-widget');
-    wp_enqueue_script('jquery-ui-button');
-    wp_enqueue_script('datatocells');
-});
+function launch_script_enqueue()
+{
+    wp_register_script('datatocells', plugin_dir_url(__FILE__) . 'datatocells.js', array('jquery', 'jquery-ui-widget', 'jquery-ui-button'), rand(0, 100), true);
+};
+add_action('wp_enqueue_scripts', 'launch_script_enqueue');
 function launchdata($atts, $content = null)
 {
 
@@ -98,11 +97,12 @@ function launchdata($atts, $content = null)
         $atts
 
     );
+    wp_enqueue_script('datatocells');
+
     if ($atts["type"] == "upcoming") {
         wp_localize_script('datatocells', 'launchdata', $launchData);
     } else {
         wp_localize_script('datatocells', 'prevlaunchdata', $launchData);
     }
-
 }
 add_shortcode('launch', 'launchdata');
