@@ -43,15 +43,15 @@ function launchdata($atts, $content = null)
 
     //formatting dates on each index for the items that return datetimes
     foreach ($nlNet as $key => $value) {
-        $nlNet[$key] = date_i18n("g:ia n/j 'y ", strtotime($nlNet[$key]));
+        $nlNet[$key] = get_date_from_gmt($nlNet[$key], 'g:ia T n/j');
     }
     unset($value);
     foreach ($nlStart as $key => $value) {
-        $nlStart[$key] = date_i18n("g:ia n/j ", strtotime($nlStart[$key]));
+        $nlStart[$key] = get_date_from_gmt($nlStart[$key], 'g:ia T n/j');
     }
     unset($value);
     foreach ($nlEnd as $key => $value) {
-        $nlEnd[$key] = date_i18n("g:ia n/j ", strtotime($nlEnd[$key]));
+        $nlEnd[$key] = get_date_from_gmt($nlEnd[$key], 'g:ia T n/j');
     }
     unset($value);
 
